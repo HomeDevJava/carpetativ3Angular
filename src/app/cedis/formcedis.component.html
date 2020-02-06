@@ -1,0 +1,61 @@
+<ul  *ngIf="errores?.length > 0" class="alert alert-danger">
+<li *ngFor="let err of errores">{{err}}</li>
+</ul>
+<div class="card">
+  <div class="card-header">{{ titulo }}</div>
+
+  <div class="card-body">
+      
+    <form #cediForm="ngForm"> 
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="nombre">Nombre de Cedis</label>
+        <div class="col-sm-6">
+            <input name="nombre" [(ngModel)]="cedi.nombre" class="form-control" required #nombre="ngModel"/>
+            <small class="text-muted" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+              <div *ngIf="nombre.errors.required" class="alert alert-danger">el nombre es requerido</div>
+            </small>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="uop">#UOP</label>
+        <div class="col-sm-6">
+            <input name="uop" [(ngModel)]="cedi.uop" class="form-control" required #uop="ngModel"/>
+            <small class="text-muted" *ngIf="uop.invalid && (uop.dirty || uop.touched)">
+              <div *ngIf="uop.errors.required" class="alert alert-danger">la Unidad operativa es requerido</div>
+            </small>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="domicilio">Domicilio</label>
+        <div class="col-sm-6">
+            <input name="domicilio"  [(ngModel)]="cedi.domicilio" class="form-control" required #domicilio="ngModel"/>
+            <small class="text-muted" *ngIf="domicilio.invalid && (domicilio.dirty || domicilio.touched)">
+              <div *ngIf="domicilio.errors.required" class="alert alert-danger">el domicilio es requerido</div>
+            </small>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="telefono">Telefono</label>
+        <div class="col-sm-6">
+            <input name="telefono"  [(ngModel)]="cedi.telefono" class="form-control" required #telefono="ngModel"/>
+            <small class="text-muted" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+              <div *ngIf="telefono.errors.required" class="alert alert-danger">el telefono es requerido</div>
+            </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="btn btn-primary mx-2" role="button" (click)="createCedis()" *ngIf="!cedi.id else elseBlock" [disabled]="!cediForm.form.valid">crear</button>
+        <ng-template #elseBlock>
+          <button type="button" class="btn btn-primary mx-2" role="button" (click)="updateCedis()" [disabled]="!cediForm.form.valid">actualizar</button>
+        </ng-template>
+
+        <a class="btn btn-warning" [routerLink]="[ '/cedis']">cancelar</a>
+      </div>
+
+    </form>
+  </div>
+</div>

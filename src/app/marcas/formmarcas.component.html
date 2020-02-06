@@ -1,0 +1,44 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">{{ err }}</li>
+</ul>
+<div class="card">
+  <div class="card-header">
+    <h4>{{ titulo }}</h4>
+  </div>
+
+  <div class="card-body">
+
+    <mat-dialog-content >
+      <form #marcaForm="ngForm">
+
+        <div class="form-group row">
+          <label for="id" class="col-sm-4 col-form-label">
+            <h5>Id</h5>
+          </label>
+          <div class="col-sm-8">
+            <input name="id" class="form-control" [(ngModel)]="marca.id" disabled />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="nombre" class="col-sm-4 col-form-label">
+            <h5>Nombre</h5>
+          </label>
+          <div class="col-sm-8">
+            <input name="nombre" class="form-control" [(ngModel)]="marca.nombre" required />
+          </div>
+        </div>
+
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close class="btn btn-primary mx-2" (click)="createMarca()" *ngIf="!marca.id else elseBlock" [disabled]="!marcaForm.form.valid">Crear</button>
+      <ng-template #elseBlock>
+          <button mat-button mat-dialog-close class="btn btn-primary mx-2" (click)="updateMarca()" [disabled]="!marcaForm.form.valid">actualizar</button>
+        </ng-template>
+      <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+  </div>
+</div>

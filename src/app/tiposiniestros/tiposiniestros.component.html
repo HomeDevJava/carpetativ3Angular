@@ -1,0 +1,49 @@
+<div class="card border-primary mb-3">
+    <div class="card-header">
+      <h4 class="card-title">Listado Tipo de Siniestros</h4>
+    </div>
+    <div class="card-body text-primary">
+  
+      <div class="alert alert-info" *ngIf="!dataSource?.data">No existen registros en la BD</div>
+  
+      <div class="mat-elevation-z8">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Busqueda">
+        </mat-form-field>
+    
+        <button mat-button (click)="openDialog(null)" class="float-right">
+          <mat-icon class="add600">add</mat-icon>
+        </button>
+    
+        <table mat-table [dataSource]="dataSource" class="table table-sm table-striped" *ngIf="dataSource?.data">
+    
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+            <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+          </ng-container>
+    
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let entidad">
+              <button mat-button (click)="openDialog(entidad)">
+                <mat-icon class="edit600">create</mat-icon>
+              </button>
+              <button mat-button (click)="delete(entidad)">
+                <mat-icon class="delete600">delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color:aliceblue;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 25]" showFirstLastButtons></mat-paginator>
+      </div>
+  
+    </div>  

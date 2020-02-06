@@ -1,0 +1,63 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">{{ err }}</li>
+</ul>
+<div class="card">
+  <div class="card-header">
+    <h4>{{titulo}}</h4>
+  </div>
+
+  <div class="card-body">
+
+    <mat-dialog-content >
+      <form #statusForm="ngForm">
+
+        <div class="form-group-sm row">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Id</mat-label>
+            <input matInput [(ngModel)]="modelo.id" name="id" disabled placeholder="Id generado">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group-sm row">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Descripcion</mat-label>
+            <input name="nombre" matInput [(ngModel)]="modelo.nombre" placeholder="nombre del modelo">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group-sm row">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Marca</mat-label>
+            <mat-select [compareWith]="comparar" [(ngModel)]="modelo.marca" name="marca">
+              <mat-option [value]="undefined">--selecciona una Marca--</mat-option>
+              <mat-option *ngFor= "let m of marcas" [value] = "m">
+                {{m.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group-sm row">
+          <mat-form-field appearance="outline" class="w-100 form-group-sm">
+            <mat-label>Dispositivo</mat-label>
+            <mat-select  [compareWith]="comparar" [(ngModel)]="modelo.device" name="device">
+              <mat-option *ngFor= "let m of devices" [value] = "m">
+                {{m.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="create()" *ngIf="!modelo.id else elseBlock" [disabled]="!statusForm.form.valid">Crear</button>
+      <ng-template #elseBlock>
+          <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="update()" [disabled]="!statusForm.form.valid">actualizar</button>
+        </ng-template>
+      <button mat-button mat-dialog-close class="btn btn-sm btn-warning">Cancel</button>
+    </mat-dialog-actions>
+
+  </div>
+</div>

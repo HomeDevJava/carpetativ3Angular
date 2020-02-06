@@ -1,0 +1,41 @@
+<ul  *ngIf="errores?.length > 0" class="alert alert-danger">
+    <li *ngFor="let err of errores">{{err}}</li>
+</ul>
+    <div class="card">
+      <div class="card-header">{{ titulo }}</div>
+    
+      <div class="card-body">
+        
+        <mat-dialog-content>
+            <form #deviceForm="ngForm"> 
+    
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="id">#id</label>
+                    <div class="col-sm-6">
+                        <input name="id" [(ngModel)]="device.id" class="form-control" disabled/>
+                    </div>
+                  </div>
+    
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="nombre">Nombre de Dispositivo</label>
+                <div class="col-sm-6">
+                    <input name="nombre" [(ngModel)]="device.nombre" class="form-control" required #nombre="ngModel"/>
+                    <small class="text-muted" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                      <div *ngIf="nombre.errors.required" class="alert alert-danger">el nombre es requerido</div>
+                    </small>
+                </div>
+              </div>
+                
+            </form>
+        </mat-dialog-content>
+        
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close class="btn btn-primary mx-2" (click)="createdevices()" *ngIf="!device.id else elseBlock" [disabled]="!deviceForm.form.valid">Crear</button>
+            <ng-template #elseBlock>
+                <button mat-button mat-dialog-close class="btn btn-primary mx-2" (click)="updatedevices()" [disabled]="!deviceForm.form.valid">actualizar</button>
+              </ng-template>
+            <button mat-button mat-dialog-close>Cancel</button>
+          </mat-dialog-actions>
+      </div>
+    </div>
+    

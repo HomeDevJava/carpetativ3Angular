@@ -1,0 +1,41 @@
+<div class="card border-primary mb-3">
+    
+    <div class="card-header clearfix">
+        <h4 class="card-title float-left ">Listado de Cedis</h4>
+        <a mat-button class=" float-right  " [routerLink]="[ '/cedis/form']" ><mat-icon class="add600" >add_box</mat-icon></a> 
+    </div>
+    
+    <div class="card-body text-primary">
+        
+        <div *ngIf="cedis?.length == 0" class="alert alert-info">No existen registros en la BD</div>
+        <table class="table table-sm table-bordered table-striped" *ngIf="cedis?.length>0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>UOP</th>
+                    <th>Domicilio</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cedi of cedis">
+                    <td>{{cedi.id}}</td>
+                    <td>{{cedi.nombre}}</td>
+                    <td>{{cedi.uop}}</td>
+                    <td>{{cedi.domicilio}}</td>
+                    <td>{{cedi.telefono}}</td>
+                    <td>
+                        <button mat-button [routerLink]="[ '/cedis/form', cedi.id ]"><mat-icon class="edit600">create</mat-icon></button>
+                        <button mat-button (click)="delete(cedi)"><mat-icon class="delete600">delete_forever</mat-icon></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="card-footer text-muted">
+        <app-paginator *ngIf="paginador" [paginador]="paginador" [urlpath]="'/cedis/page'" ></app-paginator>
+    </div>
+</div>

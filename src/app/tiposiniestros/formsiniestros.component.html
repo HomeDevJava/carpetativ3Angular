@@ -1,0 +1,40 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">{{ err }}</li>
+</ul>
+<div class="card">
+  <div class="card-header">
+    <h4>{{titulo}}</h4>
+  </div>
+
+  <div class="card-body">
+
+    <mat-dialog-content >
+      <form #siniestroForm="ngForm">
+
+        <div class="form-group row">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Id</mat-label>
+            <input matInput [(ngModel)]="siniestro.id" name="id" disabled placeholder="Placeholder">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group row">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Descripcion</mat-label>
+            <input name="nombre" matInput [(ngModel)]="siniestro.descripcion" placeholder="Placeholder">
+          </mat-form-field>
+        </div>
+
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="create()" *ngIf="!siniestro.id else elseBlock" [disabled]="!siniestroForm.form.valid">Crear</button>
+      <ng-template #elseBlock>
+          <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="update()" [disabled]="!siniestroForm.form.valid">actualizar</button>
+        </ng-template>
+      <button mat-button mat-dialog-close class="btn btn-sm btn-warning">Cancel</button>
+    </mat-dialog-actions>
+
+  </div>
+</div>
