@@ -6,68 +6,74 @@
       <h4>{{titulo}}</h4>
     </div>
   
-    <div class="card-body h-100">
+    <div class="card-body">
   
       <mat-dialog-content>
         <form #statusForm="ngForm">
   
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
+          <div class="form-group-sm row col-sm-6">
+            <mat-form-field appearance="outline" >
               <mat-label>Id</mat-label>
               <input matInput [(ngModel)]="empleado.id" name="id" disabled placeholder="Id generado">
             </mat-form-field>
           </div>
   
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Descripcion</mat-label>
-              <input name="nombre" matInput [(ngModel)]="empleado.nombre" placeholder="nombre del empleado">
-            </mat-form-field>
+          <div class="form-row">
+            <div class="form-group-sm col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Nombre</mat-label>
+                <input name="nombre" matInput [(ngModel)]="empleado.nombre" placeholder="nombre del empleado">
+              </mat-form-field>
+            </div>
+  
+            
+            <div class="form-group-sm col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Apellidos</mat-label>
+                <input name="apellidos" matInput [(ngModel)]="empleado.apellidos" placeholder="apellidos del empleado">
+              </mat-form-field>
+            </div>
           </div>
 
-          
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Apellidos</mat-label>
-              <input name="apellidos" matInput [(ngModel)]="empleado.apellidos" placeholder="apellidos del empleado">
-            </mat-form-field>
-          </div>
-
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Email</mat-label>
-              <input name="email" matInput [(ngModel)]="empleado.email" placeholder="email del empleado">
-            </mat-form-field>
-          </div>
-
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Telefono</mat-label>
-              <input name="telefono" matInput [(ngModel)]="empleado.telefono" placeholder="telefono del empleado">
-            </mat-form-field>
+          <div class="form-row">
+            <div class="form-group-sm col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email</mat-label>
+                <input name="email" matInput [(ngModel)]="empleado.email" placeholder="email del empleado">
+              </mat-form-field>
+            </div>
+  
+            <div class="form-group-sm col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Telefono</mat-label>
+                <input name="telefono" matInput [(ngModel)]="empleado.telefono" placeholder="telefono del empleado">
+              </mat-form-field>
+            </div>
           </div>
   
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Puesto</mat-label>
-              <mat-select [compareWith]="comparar" [(ngModel)]="empleado.puesto" name="puesto">
-                <mat-option [value]="undefined">--selecciona una Marca--</mat-option>
-                <mat-option *ngFor= "let m of puestos" [value] = "m">
-                  {{m.nombre}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-  
-          <div class="form-group-sm row">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Cedis</mat-label>
-              <mat-select  [compareWith]="comparar" [(ngModel)]="empleado.cedi" name="cedi">
-                <mat-option *ngFor= "let m of cedis" [value] = "m">
-                  {{m.nombre}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="form-row">
+            <div class="form-group-sm col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Puesto</mat-label>
+                <mat-select [compareWith]="comparar" [(ngModel)]="empleado.puesto" name="puesto">
+                  <mat-option [value]="undefined">--selecciona una Marca--</mat-option>
+                  <mat-option *ngFor= "let m of puestos" [value] = "m">
+                    {{m.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+    
+            <div class="form-group-sm col-sm-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cedis</mat-label>
+                <mat-select  [compareWith]="comparar" [(ngModel)]="empleado.cedi" name="cedi">
+                  <mat-option *ngFor= "let m of cedis" [value] = "m">
+                    {{m.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
   
         </form>

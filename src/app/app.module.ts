@@ -29,8 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { MatTableModule, MatCardModule, MatButtonModule,
          MatMenuModule, MatIconModule, MatPaginatorModule, MatFormFieldModule,
-         MatInputModule, MatDialogModule, MatSelectModule } from '@angular/material';
+         MatInputModule, MatDialogModule, MatSelectModule, MatSlideToggleModule, MatCheckboxModule, MatRadioModule } from '@angular/material';
 import { FormempleadosComponent } from './empleados/formempleados.component';
+import { EquiposComponent } from './equipos/equipos.component';
+import { FormequiposComponent } from './equipos/formequipos.component';
 
 
 @NgModule( {
@@ -46,13 +48,15 @@ import { FormempleadosComponent } from './empleados/formempleados.component';
       FormmodelosComponent,
       PaginatorComponent,
       EmpleadosComponent,
-      FormempleadosComponent
+      FormempleadosComponent,
+      EquiposComponent,
+      FormequiposComponent
    ],
    imports: [
       BrowserModule, HttpClientModule, FormsModule, RoutesRoutes,
       BrowserAnimationsModule, MatTableModule, MatCardModule,
       MatButtonModule, MatButtonModule, MatMenuModule, MatIconModule, MatPaginatorModule,
-      MatFormFieldModule, MatInputModule, MatDialogModule, MatSelectModule
+      MatFormFieldModule, MatInputModule, MatDialogModule, MatSelectModule, MatSlideToggleModule, MatCheckboxModule, MatRadioModule
    ],
    providers: [ CediService ],
    bootstrap: [

@@ -17,6 +17,8 @@ import { ModelosComponent } from './modelos/modelos.component';
 import { FormmodelosComponent } from './modelos/formmodelos.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { FormempleadosComponent } from './empleados/formempleados.component';
+import { EquiposComponent } from './equipos/equipos.component';
+import { FormequiposComponent } from './equipos/formequipos.component';
 
 
 const routes: Routes = [
@@ -47,7 +49,9 @@ const routes: Routes = [
   { path: 'modelos/form/:id', component: FormmodelosComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'empleados/form', component: FormempleadosComponent },
-  
+  { path: 'equipos', component: EquiposComponent },
+  { path: 'equipos/form', component: FormequiposComponent }
+
 ];
 
 export const RoutesRoutes = RouterModule.forRoot( routes );

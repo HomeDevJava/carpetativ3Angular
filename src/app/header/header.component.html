@@ -33,7 +33,7 @@
           <mat-menu #catalogos="matMenu">
             <a mat-menu-item [matMenuTriggerFor]="otros"> Otros</a>
             <a mat-menu-item [routerLink]="['empleados']" class="dropdown-item"><mat-icon class="orange600">face</mat-icon> Empleados</a>
-            <a mat-menu-item class="dropdown-item"> <mat-icon class="orange600">laptop</mat-icon>Equipos</a>
+            <a mat-menu-item [routerLink]="['equipos']" class="dropdown-item"> <mat-icon class="orange600">laptop</mat-icon>Equipos</a>
           </mat-menu>
 
           <mat-menu #otros="matMenu">
