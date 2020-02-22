@@ -1,0 +1,177 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">{{ err }}</li>
+</ul>
+<div class="card w-100">
+  
+  <div class="card-header"><h4>{{titulo}}</h4></div>
+
+  <div class="card-body">
+
+    <mat-dialog-content>
+      <form #statusForm="ngForm">
+
+        <div class="form-row">
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field appearance="outline" class="form-control-sm">
+              <mat-label>Id</mat-label>
+              <input matInput [(ngModel)]="reparacion.id" name="id" disabled placeholder="Id generado">
+            </mat-form-field>
+          </div>
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field>
+              <mat-label>fecha de Tramite</mat-label>
+              <input [matDatepicker]="picker" name="fectramite" matInput [(ngModel)]="reparacion.fectramite" placeholder="dd/mm/yyyy">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field appearance="outline" class="w-100 form-control-sm">
+              <mat-label>Guia Fedex</mat-label>
+              <input name="guiafedex" matInput [(ngModel)]="reparacion.guiafedex" placeholder="Guia de envio">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-row my-3">
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field appearance="outline" class="w-100 form-control-sm">
+              <mat-label>Empleado</mat-label>
+              <mat-select [compareWith]="comparar" [(ngModel)]="reparacion.empleado" name="empleado">
+                <mat-option [value]="undefined">--selecciona un Empleado--</mat-option>
+                <mat-option *ngFor="let m of empleados" [value]="m">
+                  {{m.nombre +" "+m.apellidos}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field appearance="outline" class="w-100 form-control-sm">
+              <mat-label>Cedis</mat-label>
+              <mat-select [compareWith]="comparar" [(ngModel)]="reparacion.cedi" name="cedi">
+                <mat-option *ngFor="let m of cedis" [value]="m">
+                  {{m.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group-sm col-sm-4">
+            <mat-form-field appearance="outline" class="w-100 form-control-sm">
+              <mat-label>Status</mat-label>
+              <mat-select [compareWith]="comparar" [(ngModel)]="reparacion.status" name="status">
+                <mat-option *ngFor="let m of status" [value]="m">
+                  {{m.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="form-row my-3">
+          <div class="form-group-sm col-md-6">
+            <mat-form-field appearance="outline" class="w-100 form-control-sm">
+              <mat-label>Observacion</mat-label>
+              <input name="observacion" matInput [(ngModel)]="reparacion.observacion" placeholder="Observaciones">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row col-sm-6 my-2">
+            <mat-form-field class="w-100">
+              <input placeholder="Agregar Equipo a reparar" matInput [formControl]="myControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let equipo of filteredOptions | async" [value]="equipo.serie"
+                  (onSelectionChange)="OnChanges($event, equipo)">
+                  {{equipo.serie + " " + equipo.modelo.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+         
+        </div>
+
+        <!---TABLA DE EQUIPOS A ENVIAR A REPARACION ------------------------------------------------------------------------------------------------ -->
+        <table class="table table-striped table-bordered table-inverse table-responsive">
+          <thead class="thead-inverse">
+            <tr>
+              <th>equipo</th>
+              <th>falla</th>
+              <th>fecenvio</th>
+              <th>fecretorno</th>
+              <th>Tipo de Daño</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let item of reparacion.items; index as i">
+              <td class="align-baseline"> 
+                {{item.equipo.serie}}
+              </td>
+              <td class="align-baseline">
+                <mat-form-field class="form-control-sm">
+                  <textarea name="falla{{i}}" matInput [(ngModel)]="item.falla" [value]="item.falla"></textarea>
+                </mat-form-field>
+              </td>
+              <td class="align-baseline">
+                
+                <div class="form-group row">  
+                    <input [matDatepicker]="pickerenvio" [(ngModel)]="item.fecenvio" name="fecenvio{{i}}"  placeholder="dd/mm/yyyy" class="form-control-sm"  >
+                    <mat-datepicker-toggle matSuffix [for]="pickerenvio"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerenvio></mat-datepicker>
+                </div>
+
+              </td>
+              <td class="align-baseline">
+
+                <div class="form-group row">                   
+                    <input [matDatepicker]="pickerretorno" [(ngModel)]="item.fecretorno" name="fecretorno{{i}}"  placeholder="dd/mm/yyyy" class="form-control-sm" >
+                    <mat-datepicker-toggle matSuffix [for]="pickerretorno"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerretorno></mat-datepicker>
+                  </div>
+
+              </td>
+              <td class="align-baseline">
+                <!--<select name="tipoproblema{{i}}" [(ngModel)]="item.tipoproblema" [compareWith]="comparar">
+                  <option *ngFor="let tipo of tiposproblemas" [ngValue]="tipo">{{tipo.descripcion}}</option>
+                </select>-->
+
+                <div class="form-group-sm col">
+                  <mat-form-field class="w-100 form-control-sm">                    
+                    <mat-select [compareWith]="comparar" [(ngModel)]="item.tipoproblema" name="tipoproblema{{i}}">
+                      <mat-option *ngFor="let m of tiposproblemas" [value]="m">
+                        {{m.descripcion}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </td>
+              <!--BOTON DE ACCIONES ELIMINAR LINEA DE LA TABLA-->
+              <td class="align-baseline">
+
+                <button mat-button (click)="delete(item, i)"> <mat-icon class="delete600">delete_forever</mat-icon> </button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="create()"
+        *ngIf="!reparacion.id else elseBlock" [disabled]="!statusForm.form.valid">Crear</button>
+      <ng-template #elseBlock>
+        <button mat-button mat-dialog-close class="btn btn-sm btn-primary mx-2" (click)="update()"
+          [disabled]="!statusForm.form.valid">actualizar</button>
+      </ng-template>
+      <button mat-button mat-dialog-close class="btn btn-sm btn-warning">Cancel</button>
+    </mat-dialog-actions>
+
+  </div>
+  
+</div>

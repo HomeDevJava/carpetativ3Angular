@@ -1,0 +1,70 @@
+<header>
+  <!-- Toolbar -->
+  <div class="toolbar" role="banner">
+    <img width="40" alt="Angular Logo"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
+    <span>Proyecto: {{title}}</span>
+
+  </div>
+  <!--  BARRA DE MENUS DE NAVEGACION............................................ -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img th:src="@{/images/pepsi.png}" width="30" height="40" alt="">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a></li>
+
+        <li class="nav-item ">
+          <a mat-button [matMenuTriggerFor]="bitacoras" class="nav-link dropdown-toggle">Bitacoras</a>
+          <mat-menu #bitacoras>
+            <a mat-menu-item class="dropdown-item" [routerLink]="['reparaciones']"><mat-icon class="orange600">build</mat-icon> Reparaciones</a>
+            <a mat-menu-item class="dropdown-item" th:href="@{/movactivos/listado}"><mat-icon class="orange600">360</mat-icon> Mov de Activos</a>
+            <a mat-menu-item class="dropdown-item" th:href="@{/siniestros/listado}"><mat-icon class="orange600">warning</mat-icon> Siniestros</a>
+          </mat-menu>
+        </li>
+
+        <li class="nav-item">
+          <a mat-button [matMenuTriggerFor]="catalogos" class="nav-link dropdown-toggle">Catalogos</a>
+
+          <mat-menu #catalogos="matMenu">
+            <a mat-menu-item [matMenuTriggerFor]="otros"> Otros</a>
+            <a mat-menu-item [routerLink]="['empleados']" class="dropdown-item"><mat-icon class="orange600">face</mat-icon> Empleados</a>
+            <a mat-menu-item [routerLink]="['equipos']" class="dropdown-item"> <mat-icon class="orange600">laptop</mat-icon>Equipos</a>
+          </mat-menu>
+
+          <mat-menu #otros="matMenu">
+            <a mat-menu-item [routerLink]="['devices']" class="dropdown-item"><mat-icon class="orange600">devices</mat-icon> Dispositivos</a>
+            <a mat-menu-item [routerLink]="['marcas']" class="dropdown-item"><mat-icon class="orange600">card_membership</mat-icon> Marcas</a>
+            <a mat-menu-item [routerLink]="[ '/modelos' ]" class="dropdown-item"><mat-icon class="orange600">smartphone</mat-icon> Modelos</a>
+            <a mat-menu-item [routerLink]="[ '/cedis' ]" class="dropdown-item"><mat-icon class="orange600">home_work</mat-icon> Cedis</a>
+            <a mat-menu-item [routerLink]="[ '/puestos' ]" class="dropdown-item"><mat-icon class="orange600">work</mat-icon> Puestos</a>
+            <a mat-menu-item [routerLink]="[ '/status' ]" class="dropdown-item"><mat-icon class="orange600">playlist_add_check</mat-icon>Status</a>
+            <a mat-menu-item [routerLink]="[ '/problemas' ]" class="dropdown-item"><mat-icon class="orange600">mobile_off</mat-icon>Tipo de Daño</a>
+            <a mat-menu-item [routerLink]="[ '/tiposiniestros']" class="dropdown-item"><mat-icon class="orange600">local_hospital</mat-icon> Tipo de Sinniestro</a>
+          </mat-menu>
+        </li>
+
+        <li class="nav-item"><a class="nav-link disabled" href="#">Reportes</a></li>
+
+        <li class="nav-item dropdown">
+          <a mat-button [matMenuTriggerFor]="tools" class="nav-link dropdown-toggle">Tools</a>
+
+          <mat-menu #tools="matMenu">
+            <a mat-menu-item [routerLink]="['empleados']" class="dropdown-item"><mat-icon class="orange600">account_box</mat-icon> Usuarios</a>
+            <a mat-menu-item class="dropdown-item"><mat-icon class="orange600">assignment_turned_in</mat-icon> Roles</a>
+          </mat-menu>
+        </li>
+
+      </ul>
+      <!--  <form class="form-inline my-2 my-lg-0">
+           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+    </div>
+  </nav>
+
+</header>
