@@ -39,7 +39,7 @@ export class FormreparacionesComponent implements OnInit {
   equipos: Equipo[] = [];
   status: Status[] = [];
   tiposproblemas: Tipoproblema[] = [];
-  lista: Itemreparacion[] = [];
+  // lista: Itemreparacion[] = [];
 
 
   displayedColumns: string[] = [ 'id', 'reparacion', 'equipo', 'tipoproblema', 'fecenvio', 'fecretorno', 'falla' ];
@@ -76,7 +76,7 @@ export class FormreparacionesComponent implements OnInit {
   getReparacion() {
     if ( this.data ) {
       this.reparacion = this.data;
-      this.reparacion.items.forEach( d => this.lista.push( d ) );
+      // this.reparacion.items.forEach( d => this.lista.push( d ) );
       // this.lista = this.reparacion.items;
     } else {
       this.reparacion = new Reparacion();
@@ -132,28 +132,43 @@ export class FormreparacionesComponent implements OnInit {
     if ( event.source.selected ) {
       const item = new Itemreparacion();
       item.equipo = e;
-      this.lista.push( item );
       this.reparacion.items.push( item );
-      console.log( this.lista );
       console.log( this.reparacion.items );
       return true;
     }
 
-    console.log( this.lista );
     this.myControl.setValue( '' );
     // this.items._updateChangeSubscription();
   }
 
   delete( item: Itemreparacion, index: number ) {
-    let i = this.reparacion.items.indexOf( item );
-    console.log( 'el index es... ' + i );
-
 
     if ( item.id === undefined || item.id === null ) {
       console.log( 'este registro es de nueva creacion' );
       this.reparacion.items.splice( index, 1 );
+    } else {
+      Swal.fire( {
+        title: 'Borrando...!',
+        text: `Dese borrar el registro ${ item.equipo.serie }`,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!',
+        confirmButtonColor: '#3085d6'
+      } ).then( result => {
+        if ( result.value ) {
+          this.reparacionService.deleteItem( item.id ).subscribe( response => {
+            // this.getTable();
+            this.reparacion.items.splice( index, 1 );
+            Swal.fire(
+              'Proceso Completado',
+              `${ response.msg } ${ item.id }`,
+              'success'
+            );
+          } );
+        }
+      } );
     }
-
   }
 
 }

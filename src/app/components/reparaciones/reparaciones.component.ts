@@ -101,6 +101,7 @@ export class ReparacionesComponent implements OnInit, OnDestroy {
 
     this.dialogRef.afterClosed().subscribe( result => {
       // console.log( `Dialog result: ${ result }` );
+      this.getTable();
     } );
   }
 

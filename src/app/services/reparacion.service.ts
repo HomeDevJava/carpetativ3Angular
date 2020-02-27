@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { Reparacion } from '../models/reparacion';
 import { catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { Reparacion } from '../models/reparacion';
 
 @Injectable( {
   providedIn: 'root'
@@ -60,6 +60,16 @@ export class ReparacionService {
 
   delete( id: number ): Observable<any> {
     return this.http.delete( `${ this.urlEndpoint }/${ id }`, { headers: this.httpHeaders } )
+      .pipe(
+        catchError( e => {
+          Swal.fire( e.error.msg, e.error.error, 'error' );
+          return throwError( e );
+        } )
+      );
+  }
+
+  deleteItem( id: number ): Observable<any> {
+    return this.http.delete( `${ this.urlEndpoint }/item/${ id }`, { headers: this.httpHeaders } )
       .pipe(
         catchError( e => {
           Swal.fire( e.error.msg, e.error.error, 'error' );
