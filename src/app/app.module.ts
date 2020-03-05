@@ -39,6 +39,10 @@ import { FormequiposComponent } from './components/equipos/formequipos.component
 import { ReparacionesComponent } from './components/reparaciones/reparaciones.component';
 import { FormreparacionesComponent } from './components/reparaciones/formreparaciones.component';
 import { StatusService } from './services/status.service';
+import { MovactivosComponent } from './components/movactivos/movactivos.component';
+import { MovactivoService } from './services/movactivo.service';
+import { FormmovactivosComponent } from './components/movactivos/formmovactivos.component';
+import { ArrayPipe } from './components/movactivos/array.pipe';
 
 
 @NgModule( {
@@ -51,7 +55,7 @@ import { StatusService } from './services/status.service';
       TiposiniestrosComponent, FormsiniestrosComponent, ModelosComponent,
       FormmodelosComponent, PaginatorComponent, EmpleadosComponent,
       FormempleadosComponent, EquiposComponent, FormequiposComponent,
-      ReparacionesComponent, FormreparacionesComponent
+      ReparacionesComponent, FormreparacionesComponent, MovactivosComponent, FormmovactivosComponent, ArrayPipe
    ],
    imports: [
       BrowserModule, HttpClientModule, FormsModule, RoutesRoutes,
@@ -62,7 +66,7 @@ import { StatusService } from './services/status.service';
       MatFormFieldModule, ReactiveFormsModule, MatDatepickerModule, MatMomentDateModule
    ],
    providers: [
-      CediService, StatusService,
+      CediService, StatusService, MovactivoService,
       { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
       { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
    ],

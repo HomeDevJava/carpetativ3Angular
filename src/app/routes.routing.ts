@@ -21,6 +21,8 @@ import { EquiposComponent } from './components/equipos/equipos.component';
 import { FormequiposComponent } from './components/equipos/formequipos.component';
 import { ReparacionesComponent } from './components/reparaciones/reparaciones.component';
 import { FormreparacionesComponent } from './components/reparaciones/formreparaciones.component';
+import { MovactivosComponent } from './components/movactivos/movactivos.component';
+import { FormmovactivosComponent } from './components/movactivos/formmovactivos.component';
 
 
 const routes: Routes = [
@@ -54,7 +56,9 @@ const routes: Routes = [
   { path: 'equipos', component: EquiposComponent },
   { path: 'equipos/form', component: FormequiposComponent },
   {path: 'reparaciones', component: ReparacionesComponent},
-  {path: 'reparaciones/form', component: FormreparacionesComponent}
+  {path: 'reparaciones/form', component: FormreparacionesComponent},
+  {path: 'movactivos', component: MovactivosComponent},
+  {path: 'movactivos/form', component: FormmovactivosComponent}
 
 
 ];
